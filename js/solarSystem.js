@@ -3,7 +3,7 @@
 
 var planetController; 
 
-var startStuff = function ()
+$( document ).ready(function ()
 {		
 	var xOffset = 400;
 	var yOffset = 300;
@@ -130,7 +130,7 @@ var startStuff = function ()
 	},
 	100);	
 
-};
+});
 
 var toggleRun = function()
 {
