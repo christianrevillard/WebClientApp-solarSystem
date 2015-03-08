@@ -5,23 +5,23 @@ var planetController;
 
 $( document ).ready(function ()
 {		
-	var xOffset = 400;
-	var yOffset = 300;
 	
 	var theCanvas = document.getElementById('theCanvas');
-
+	
 	var radius = 5;
 	
 	var context = theCanvas.getContext("2d");		
 	context.strokeStyle='#0FF';
 	context.fillStyle='#FFF';
 
+	context.translate(theCanvas.width/2, theCanvas.height/2);
+	
 	planetController = new SolarSystemController(function (x, y, m) // pixels !
 			{
 				var r = Math.floor (Math.LOG10E * Math.log(Math.pow(m,1/3)));
 				
 				context.beginPath();
-				context.arc(x+xOffset,y+yOffset,r,0,2*Math.PI);
+				context.arc(x,y,r,0,2*Math.PI);
 				
 				// range 1e22 to 1e32
 				
@@ -40,28 +40,30 @@ $( document ).ready(function ()
 		"click",
 		function(event)
 		{
+			var canvasXY = planetController.getCanvasXYFromClientXY(theCanvas, event);
+
 			if (planetController.isRunning)
 				{
 			if (event.shiftKey)
 			{
-				// add with speed - earth
+				// add without speed - sun
 				addPlanet(
-					event.clientX - xOffset, 
-					event.clientY - yOffset,
-					30000,
-					0,
-					5e18);
-				return;
+						canvasXY.x, 
+						canvasXY.y,
+						0,
+						0,
+						2e30);
+					return;
 			}
 			
-			// add without speed - sun
+			// add with speed - earth
 			addPlanet(
-					event.clientX  - xOffset, 
-					event.clientY  - yOffset,
-					0,
-					0,
-					2e30);
-				return;
+				canvasXY.x, 
+				canvasXY.y,
+				30000,
+				0,
+				5e18);
+			return;
 				}
 			else
 			{
@@ -125,7 +127,7 @@ $( document ).ready(function ()
 			return;
 
 		context.beginPath();
-		context.fillRect(0,0,800,600);
+		context.fillRect(-400,-300,800,600);
 		redraw();
 	},
 	100);	
