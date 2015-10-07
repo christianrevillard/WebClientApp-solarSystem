@@ -1,0 +1,2 @@
+C:\Users\Christian\Development\Projects\Apps\SolarSystem\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\Christian\Development\Projects\Apps\SolarSystem\obj\Debug\SolarSystem.njsprojResolveAssemblyReference.cache
